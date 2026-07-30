@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Rochdy/mygitopsnodeapi-infra.git
-    targetRevision: HEAD
+    targetRevision: Main
     path: overlays/staging
   destination:
     server: https://kubernetes.default.svc
