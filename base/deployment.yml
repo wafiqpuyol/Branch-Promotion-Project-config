@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: backend
   labels:
     app: backend
 spec:
@@ -22,6 +21,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: wafiqhossain/branch_promotion_app:9f2d1c2abf95af770375d5909861be858318aa610c7a142c4d0a5aa2cba05abe
+          image: wafiqhossain/branch_promotion_app:96459bdb3aa35cf61cb7bf31234c6389b8c8c538
           ports:
             - containerPort: 3000

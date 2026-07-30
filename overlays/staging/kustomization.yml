@@ -4,6 +4,7 @@ resources:
   - ../../base
   - namespace.yml
 
+namespace: staging
 nameSuffix: -staging
 
 patches:
