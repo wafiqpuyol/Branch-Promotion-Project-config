@@ -22,7 +22,7 @@ spec:
       labels:
         previews.argocd.argoproj.io/enabled: "true"
     spec:
-      project: branch-promotion-project
+      project: default
       source:
         repoURL: https://github.com/wafiqpuyol/Branch-Promotion-Project-config.git
         targetRevision: HEAD
