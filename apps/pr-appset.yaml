@@ -18,10 +18,11 @@ spec:
         requeueAfterSeconds: 120
   template:
     metadata:
-      name: 'branch-promotion-project-web-pr-{{.number}}' # <4>
+      name: 'branch-promotion-project-web-pr-{{.number}}'
       labels:
         previews.argocd.argoproj.io/enabled: "true"
     spec:
+      # Make sure the project you're adding already exist
       project: default
       source:
         repoURL: https://github.com/wafiqpuyol/Branch-Promotion-Project-config.git
