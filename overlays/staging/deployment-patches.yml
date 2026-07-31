@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
         - name: backend
-          image: wafiqhossain/branch_promotion_app:1989b9fdf47832ad596b082714b8146711c54eee
+          image: wafiqhossain/branch_promotion_app:b23ec55a0ca74c22f89d9cb53b27df347723c977
