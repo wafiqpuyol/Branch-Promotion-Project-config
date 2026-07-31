@@ -14,8 +14,8 @@ spec:
             secretName: branch-promotion-project-app-github-token
             key: token
           labels:
-            - preview   # <2>
-        requeueAfterSeconds: 120  # <3>
+            - preview
+        requeueAfterSeconds: 120
   template:
     metadata:
       name: 'branch-promotion-project-web-pr-{{.number}}' # <4>
@@ -28,6 +28,9 @@ spec:
         targetRevision: HEAD
         path: overlays/pr
         kustomize:
+          # Tell argocd that this namespace field is Git Resource. So, after merge this also get deleted
+          #  When a PR is opened, Kustomize dynamically renames pr-preview to branch-promotional-project-pr-{{.number}}. Because Argo CD now tracks the Namespace object as a managed resource belonging to the PR Application, merging your PR (which deletes the Application) will automatically delete both the app resources AND the
+          namespace: 'branch-promotional-project-pr-{{.number}}'
           images:
             - 'wafiqhossain/preview-env:pr-{{.number}}'
       destination:
@@ -38,4 +41,4 @@ spec:
           prune: true
           selfHeal: true
         syncOptions:
-          - CreateNamespace=true  # <8>
+          - CreateNamespace=true
