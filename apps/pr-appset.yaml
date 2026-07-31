@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: branch-promotional-project-pr-previews
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - pullRequest:
+        github:
+          owner: wafiqpuyol
+          repo: Branch-Promotion-Project-App
+          tokenRef:
+            secretName: branch-promotion-project-app-github-token
+            key: token
+          labels:
+            - preview   # <2>
+        requeueAfterSeconds: 120  # <3>
+  template:
+    metadata:
+      name: 'branch-promotion-project-web-pr-{{.number}}' # <4>
+      labels:
+        previews.argocd.argoproj.io/enabled: "true"
+    spec:
+      project: branch-promotion-project
+      source:
+        repoURL: https://github.com/wafiqpuyol/Branch-Promotion-Project-config.git
+        targetRevision: HEAD
+        path: overlays/pr
+        kustomize:
+          images:
+            - 'wafiqhossain/preview-env:pr-{{.number}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'branch-promotional-project-pr-{{.number}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true  # <8>
